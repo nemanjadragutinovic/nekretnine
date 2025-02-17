@@ -22,15 +22,17 @@ time.sleep(2)
 flat_to_compare = ""
 
 while True:
-    flat_list_div = driver.find_element(By.CSS_SELECTOR, 'div[itemtype="http://schema.org/ItemList"]')
-    flat_list = flat_list_div.find_elements(By.CSS_SELECTOR, 'article[itemtype="http://schema.org/Product"]')
-    flat_holder = flat_list[0].find_element(By.CSS_SELECTOR, ".fpogl-holder")
-    flat = flat_holder.find_element(By.CSS_SELECTOR, ".fpogl-list-title")
-    flat_link = flat.get_attribute("href")
-    flat_name = flat.find_element(By.TAG_NAME, "h2").text
-    if string_to_compare != flat_name:
-        bot.send_message(chat_id=channel_id, text=flat_link)
-        string_to_compare = flat_name
-
+    try:
+        flat_list_div = driver.find_element(By.CSS_SELECTOR, 'div[itemtype="http://schema.org/ItemList"]')
+        flat_list = flat_list_div.find_elements(By.CSS_SELECTOR, 'article[itemtype="http://schema.org/Product"]')
+        flat_holder = flat_list[0].find_element(By.CSS_SELECTOR, ".fpogl-holder")
+        flat = flat_holder.find_element(By.CSS_SELECTOR, ".fpogl-list-title")
+        flat_link = flat.get_attribute("href")
+        flat_name = flat.find_element(By.TAG_NAME, "h2").text
+        if flat_to_compare != flat_name:
+            bot.send_message(chat_id=channel_id, text=flat_link)
+            flat_to_compare = flat_name
+    except:
+        print("do nothing")
     driver.refresh()
     time.sleep(20)

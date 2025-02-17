@@ -22,12 +22,14 @@ time.sleep(2)
 flat_to_compare = ""
 
 while True:
-    element = driver.find_element(By.CSS_SELECTOR, "div.flex.flex-col.gap-2")
-    element = element.find_element(By.CSS_SELECTOR, "a.flex.justify-between.gap-1")
-    href = element.get_attribute("href")
-    if flat_to_compare != href:
-        bot.send_message(chat_id=channel_id, text=href)
-        flat_to_compare = href
-
+    try:
+        element = driver.find_element(By.CSS_SELECTOR, "div.flex.flex-col.gap-2")
+        element = element.find_element(By.CSS_SELECTOR, "a.flex.justify-between.gap-1")
+        href = element.get_attribute("href")
+        if flat_to_compare != href:
+            bot.send_message(chat_id=channel_id, text=href)
+            flat_to_compare = href
+    except:
+        print("do nothing")
     driver.refresh()
     time.sleep(20)
