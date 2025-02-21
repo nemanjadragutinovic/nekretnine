@@ -12,7 +12,7 @@ sys.path.append(os.curdir + '\\..')
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
-# options.add_argument("--headless=new")
+options.add_argument("--headless=new")
 
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
