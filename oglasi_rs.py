@@ -29,13 +29,13 @@ while True:
         flat = flat_holder.find_element(By.CSS_SELECTOR, ".fpogl-list-title")
         flat_link = flat.get_attribute("href")
         if flat_link in flat_to_compare:
-            print("do nothing")
+            pass
         else:
             flat_to_compare.append(flat_link)
             if len(flat_to_compare) > 20:
                 del flat_to_compare[0]
             bot.send_message(chat_id=channel_id, text=flat_link)
     except:
-        print("do nothing")
+        pass
     driver.refresh()
     time.sleep(20)

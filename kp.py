@@ -28,13 +28,13 @@ while True:
         element = first_child.find_element(By.CSS_SELECTOR, "a.Link_link__2iGTE")
         href_value = element.get_attribute("href")
         if href_value in flat_to_compare:
-            print("do nothing")
+            pass
         else:
             flat_to_compare.append(href_value)
             if len(flat_to_compare) > 20:
                 del flat_to_compare[0]
             bot.send_message(chat_id=channel_id, text=href_value)
     except:
-        print("do nothing")
+        pass
     driver.refresh()
     time.sleep(20)
