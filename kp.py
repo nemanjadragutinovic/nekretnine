@@ -19,7 +19,7 @@ driver.maximize_window()
 driver.get('https://www.kupujemprodajem.com/nekretnine-kupoprodaja/pretraga?categoryId=26&locationId=16&period=today&order=posted%20desc')
 time.sleep(2)
 
-flat_to_compare = ""
+flat_to_compare = []
 
 while True:
     try:
@@ -27,9 +27,13 @@ while True:
         first_child = third_child.find_element("xpath", "./*")
         element = first_child.find_element(By.CSS_SELECTOR, "a.Link_link__2iGTE")
         href_value = element.get_attribute("href")
-        if flat_to_compare != href_value:
+        if href_value in flat_to_compare:
+            print("do nothing")
+        else:
+            flat_to_compare.append(href_value)
+            if len(flat_to_compare) > 20:
+                del flat_to_compare[0]
             bot.send_message(chat_id=channel_id, text=href_value)
-            flat_to_compare = href_value
     except:
         print("do nothing")
     driver.refresh()
