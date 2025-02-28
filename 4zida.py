@@ -19,16 +19,20 @@ driver.maximize_window()
 driver.get('https://www.4zida.rs/prodaja-stanova/gradske-lokacije-novi-sad/vlasnik?sortiranje=najnoviji')
 time.sleep(2)
 
-flat_to_compare = ""
+flat_to_compare = []
 
 while True:
     try:
         element = driver.find_element(By.CSS_SELECTOR, "div.flex.flex-col.gap-2")
         element = element.find_element(By.CSS_SELECTOR, "a.flex.justify-between.gap-1")
         href = element.get_attribute("href")
-        if flat_to_compare != href:
+        if href in flat_to_compare:
+            pass
+        else:
+            flat_to_compare.append(href)
+            if len(flat_to_compare) > 20:
+                del flat_to_compare[0]
             bot.send_message(chat_id=channel_id, text=href)
-            flat_to_compare = href
     except:
         print("do nothing")
     driver.refresh()
